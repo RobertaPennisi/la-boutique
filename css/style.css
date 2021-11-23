@@ -5,6 +5,9 @@
 
 body {
   font-family: "Mohave", sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 h4 {
@@ -30,6 +33,19 @@ strong {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.wrapper .__hero{
+  height: 350px;
+  background: url(https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+  background-repeat: no-repeat;
+  background-position-y: 35%;
+  background-size: cover;
+}
+.wrapper .__hero .intestazione{
+  color: #fff;
+  padding: 0 50px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .wrapper__titles {
