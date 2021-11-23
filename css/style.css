@@ -41,24 +41,13 @@ strong {
   top: 0;
   height: 350px;
   width: 100%;
-  
-  animation: slider 9s ease infinite 3s alternate-reverse;
+  background-image: url("https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg");
   background-position-y: 20%;
   background-size: cover;
+  transition: all 1s ease;
 }
 
-@keyframes slider {
-  0% {
-    background-image: url("https://cdn.pixabay.com/photo/2015/08/29/01/18/closet-912694_960_720.jpg");
-  }
-  50% {
-    background-image: url("https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg");
-  }
-  100% {
-    background-image: url("https://cdn.pixabay.com/photo/2016/04/19/13/39/store-1338629_960_720.jpg");
-    
-  }
-}
+
 
 .wrapper .__hero {
   position: relative;
