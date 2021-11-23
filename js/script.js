@@ -1,5 +1,3 @@
-// import { products } from "./products.js";   <== importare la lista prodotti in modo locale
-
 function createProduct(parent, imgUrl, productTitle, textPrice) {
   const product = document.createElement("div");
   product.className = "product";
