@@ -19,8 +19,7 @@ function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
       )
     );
     cartRender();
-    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
-    //alert(`Prodotto aggiunto al carrello, numero prodotti: ${cartList.length}`)
+    showModal(product.offsetTop, product.offsetLeft);
   });
 }
 
@@ -66,40 +65,46 @@ const cartBtn = document.querySelector(".cartBtn");
 const cartProductsNum = document.querySelector('.cartProductsNum');
 const clearCartBtn = document.querySelector('.clearCart');
 
-
-getProductList();
 clearCartBtn.addEventListener('click', () => {
-    cartList = [];
-    cartRender();
-    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
+  cartList = [];
+  cartRender();
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-    cartList.length = localStorage.getItem("totCartItems");
-    cartRender();
+  cartList.length = localStorage.getItem("totCartItems");
+  cartRender();
 })
 
-getProductList();
+//Parte inerente la logica della modale
+const modalAddedToCart = document.querySelector(".modalAddedToCart");
 
+const showModal = (top, left) => {
+  modalAddedToCart.style.display = "block";
+  modalAddedToCart.style.top = top + 30 + "px";
+  modalAddedToCart.style.left = left + 12 + "px";
 
+  setTimeout(() => {modalAddedToCart.style.display = "none";}, 1000);
+}
 
+//parte inerente la logica dello slider
 const slider = () => {
-    const slides = ["https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg", "https://cdn.pixabay.com/photo/2016/04/19/13/39/store-1338629_960_720.jpg", "https://cdn.pixabay.com/photo/2015/08/29/01/18/closet-912694_960_720.jpg"]
-    const overlay = document.querySelector('.overlay');
+  const slides = ["https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg", "https://cdn.pixabay.com/photo/2016/04/19/13/39/store-1338629_960_720.jpg", "https://cdn.pixabay.com/photo/2015/08/29/01/18/closet-912694_960_720.jpg"]
+  const overlay = document.querySelector('.overlay');
+  
+  setTimeout(() => {
+    overlay.style.backgroundImage = `url('${slides[0]}')`;
     
     setTimeout(() => {
-        overlay.style.backgroundImage = `url('${slides[0]}')`;
-
-    setTimeout(() => {
-        overlay.style.backgroundImage = `url('${slides[1]}')`;
-
-    setTimeout(() => {
+      overlay.style.backgroundImage = `url('${slides[1]}')`;
+      
+      setTimeout(() => {
         overlay.style.backgroundImage = `url('${slides[2]}')`;
-
+        
+      }, 3000);
     }, 3000);
-    }, 3000);
-    }, 3000);
+  }, 3000);
 }
 
 setInterval(slider, 9000);
 
+getProductList();
