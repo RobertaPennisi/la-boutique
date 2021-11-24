@@ -1,10 +1,27 @@
-function createProduct(parent, imgUrl, productTitle, textPrice) {
+const cartRender = () => {
+  cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`;
+  localStorage.setItem('totCartItems', cartList.length);
+}
+
+function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
   const product = document.createElement("div");
   product.className = "product";
+  product.setAttribute("id", idProduct)
 
   createImg(product, imgUrl, productTitle);
   createText(product, productTitle, textPrice);
   parent.appendChild(product);
+
+  product.addEventListener('click', (e) => {  
+    cartList.push(
+      productList.find(
+        (product) => parseInt(e.currentTarget.id) === product.id
+      )
+    );
+    cartRender();
+    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
+    //alert(`Prodotto aggiunto al carrello, numero prodotti: ${cartList.length}`)
+  });
 }
 
 function createImg(parent, imgUrl, productTitle) {
@@ -25,19 +42,9 @@ function createText(parent, productTitle, textPrice) {
   parent.append(title, price);
 }
 
-// fetch("https://fakestoreapi.com/products") // <== importare la lista prodotti in modo remoto
-//   .then((response) => response.json())
-//   .then((data) => {
-//     products = data;
-//     renderProducts();
-//   });
-
-let products = [];
-const wrapperProducts = document.querySelector(".wrapper__products");
-
 function renderProducts(listItems) {
     listItems.map((product) => {
-    createProduct(wrapperProducts, product.image, product.title, product.price);
+    createProduct(wrapperProducts, product.image, product.title, product.price, product.id);
   });
 }
 
@@ -45,8 +52,32 @@ const getProductList = async () => {
     const res = await fetch("https://fakestoreapi.com/products");
     const data = await res.json();
 
+    productList = data;
     return renderProducts(data);
 }
+
+
+let productList = [];
+const wrapperProducts = document.querySelector(".wrapper__products");
+
+// Parte inerente alla logica del carrello
+let cartList = [];
+const cartBtn = document.querySelector(".cartBtn");
+const cartProductsNum = document.querySelector('.cartProductsNum');
+const clearCartBtn = document.querySelector('.clearCart');
+
+
+getProductList();
+clearCartBtn.addEventListener('click', () => {
+    cartList = [];
+    cartRender();
+    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    cartList.length = localStorage.getItem("totCartItems");
+    cartRender();
+})
 
 getProductList();
 
@@ -71,3 +102,4 @@ const slider = () => {
 }
 
 setInterval(slider, 9000);
+

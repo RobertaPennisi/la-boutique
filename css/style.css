@@ -71,6 +71,16 @@ strong {
   margin-bottom: 0;
 }
 
+.cartBanner {
+  display: flex;
+  justify-content: flex-end;
+  background: #000;
+  color: #fff;
+}
+ .cartBanner .cartProductsNum {
+   margin: 10px 20px;
+ }
+
 .wrapper__titles {
   display: flex;
   justify-content: center;
