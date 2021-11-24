@@ -1,3 +1,8 @@
+const cartRender = () => {
+  cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`;
+  localStorage.setItem('totCartItems', cartList.length);
+}
+
 function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
   const product = document.createElement("div");
   product.className = "product";
@@ -13,8 +18,9 @@ function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
         (product) => parseInt(e.currentTarget.id) === product.id
       )
     );
-
-    alert(`Prodotto aggiunto al carrello, numero prodotti: ${cartList.length}`)
+    cartRender();
+    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
+    //alert(`Prodotto aggiunto al carrello, numero prodotti: ${cartList.length}`)
   });
 }
 
@@ -50,15 +56,24 @@ const getProductList = async () => {
     return renderProducts(data);
 }
 
-let product = [];
-const wrapperProducts = document.querySelector(".wrapper__products");
-const cartBtn = document.querySelector(".cartBtn");
-const cartList = []
 let productList = [];
+const wrapperProducts = document.querySelector(".wrapper__products");
+
+// Parte inerente alla logica del carrello
+let cartList = [];
+const cartBtn = document.querySelector(".cartBtn");
+const cartProductsNum = document.querySelector('.cartProductsNum');
+const clearCartBtn = document.querySelector('.clearCart');
 
 
 getProductList();
+clearCartBtn.addEventListener('click', () => {
+    cartList = [];
+    cartRender();
+    //cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`
+})
 
-// cartBtn.addEventListener('click', () => {
-//   console.log(cartList);
-// })
+document.addEventListener('DOMContentLoaded', () => {
+    cartList.length = localStorage.getItem("totCartItems");
+    cartRender();
+})
