@@ -41,13 +41,13 @@ strong {
   top: 0;
   height: 350px;
   width: 100%;
-
-  background-image: url("https://media.istockphoto.com/photos/fits-perfect-picture-id938463764");
-  background-position-y: 35%;
+  background-image: url("https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg");
+  background-position-y: 20%;
   background-size: cover;
-
-  filter: contrast(1.4) sepia(0.2);
+  transition: all 1s ease;
 }
+
+
 
 .wrapper .__hero {
   position: relative;
