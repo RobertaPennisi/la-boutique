@@ -47,8 +47,6 @@ strong {
   transition: all 1s ease;
 }
 
-
-
 .wrapper .__hero {
   position: relative;
   background: rgba(0, 0, 0, 0.335);
@@ -129,4 +127,22 @@ strong {
 
 .product p {
   align-self: flex-end;
+}
+
+/*Stilizzazione modale*/
+
+.modalAddedToCart{
+  width: 150px;
+  background: rgb(2, 192, 196);
+  color: #fff;
+  border-radius: 10px 10px 0 10px;
+  
+  position: absolute;
+  
+  display: none;
+  transition: all 1s ease;
+}
+.modalAddedToCart p{
+  padding: 0 10px;
+  font-weight: 500;
 }
