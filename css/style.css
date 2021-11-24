@@ -30,22 +30,45 @@ strong {
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.wrapper .__hero{
+.overlay {
+  position: absolute;
+  top: 0;
   height: 350px;
-  background: url(https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
-  background-repeat: no-repeat;
-  background-position-y: 35%;
+  width: 100%;
+  background-image: url("https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg");
+  background-position-y: 20%;
   background-size: cover;
+  transition: all 1s ease;
 }
-.wrapper .__hero .intestazione{
-  color: #fff;
-  padding: 0 50px;
-  font-family: Arial, Helvetica, sans-serif;
+
+
+
+.wrapper .__hero {
+  position: relative;
+  background: rgba(0, 0, 0, 0.335);
+  top: 0;
+  height: 350px;
+  width: 100%;
+  z-index: 2;
+}
+
+.wrapper .__hero .intestazione {
+  position: absolute;
+  padding: 30px;
+  height: 100%;
+  color: whitesmoke;
+  font-size: 1.5rem;
+  z-index: 3;
+}
+
+.wrapper .__hero .intestazione h2 {
+  margin-bottom: 0;
 }
 
 .cartBanner {

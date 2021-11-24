@@ -56,6 +56,7 @@ const getProductList = async () => {
     return renderProducts(data);
 }
 
+
 let productList = [];
 const wrapperProducts = document.querySelector(".wrapper__products");
 
@@ -77,3 +78,28 @@ document.addEventListener('DOMContentLoaded', () => {
     cartList.length = localStorage.getItem("totCartItems");
     cartRender();
 })
+
+getProductList();
+
+
+
+const slider = () => {
+    const slides = ["https://cdn.pixabay.com/photo/2013/11/14/12/34/neckties-210347_960_720.jpg", "https://cdn.pixabay.com/photo/2016/04/19/13/39/store-1338629_960_720.jpg", "https://cdn.pixabay.com/photo/2015/08/29/01/18/closet-912694_960_720.jpg"]
+    const overlay = document.querySelector('.overlay');
+    
+    setTimeout(() => {
+        overlay.style.backgroundImage = `url('${slides[0]}')`;
+
+    setTimeout(() => {
+        overlay.style.backgroundImage = `url('${slides[1]}')`;
+
+    setTimeout(() => {
+        overlay.style.backgroundImage = `url('${slides[2]}')`;
+
+    }, 3000);
+    }, 3000);
+    }, 3000);
+}
+
+setInterval(slider, 9000);
+
