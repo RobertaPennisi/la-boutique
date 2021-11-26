@@ -1,80 +1,3 @@
-const cartRender = () => {
-  cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`;
-  localStorage.setItem('totCartItems', cartList.length);
-}
-
-function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
-  const product = document.createElement("div");
-  product.className = "product";
-  product.setAttribute("id", idProduct)
-
-  createImg(product, imgUrl, productTitle);
-  createText(product, productTitle, textPrice);
-  parent.appendChild(product);
-
-  product.addEventListener('click', (e) => {  
-    cartList.push(
-      productList.find(
-        (product) => parseInt(e.currentTarget.id) === product.id
-      )
-    );
-    cartRender();
-    showModal(product.offsetTop, product.offsetLeft);
-  });
-}
-
-function createImg(parent, imgUrl, productTitle) {
-  const image = document.createElement("img");
-  image.src = imgUrl;
-  image.alt = productTitle;
-
-  parent.appendChild(image);
-}
-
-function createText(parent, productTitle, textPrice) {
-  const title = document.createElement("h4");
-  title.textContent = productTitle;
-
-  const price = document.createElement("strong");
-  price.textContent = `${textPrice} $`;
-
-  parent.append(title, price);
-}
-
-function renderProducts(listItems) {
-    listItems.map((product) => {
-    createProduct(wrapperProducts, product.image, product.title, product.price, product.id);
-  });
-}
-
-const getProductList = async () => {
-    const res = await fetch("https://fakestoreapi.com/products");
-    const data = await res.json();
-
-    productList = data;
-    return renderProducts(data);
-}
-
-
-let productList = [];
-const wrapperProducts = document.querySelector(".wrapper__products");
-
-// Parte inerente alla logica del carrello
-let cartList = [];
-const cartBtn = document.querySelector(".cartBtn");
-const cartProductsNum = document.querySelector('.cartProductsNum');
-const clearCartBtn = document.querySelector('.clearCart');
-
-clearCartBtn.addEventListener('click', () => {
-  cartList = [];
-  cartRender();
-})
-
-document.addEventListener('DOMContentLoaded', () => {
-  cartList.length = localStorage.getItem("totCartItems");
-  cartRender();
-})
-
 //Parte inerente la logica della modale
 const modalAddedToCart = document.querySelector(".modalAddedToCart");
 
@@ -107,4 +30,97 @@ const slider = () => {
 
 setInterval(slider, 9000);
 
-getProductList();
+//Parte inerente la logica del carrello
+function setCartProductsNum() {
+  cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`;
+}
+
+function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
+  const product = document.createElement("div");
+  product.className = "product";
+  product.setAttribute("id", idProduct);
+
+  createImg(product, imgUrl, productTitle);
+  createText(product, productTitle, textPrice);
+  parent.appendChild(product);
+
+  product.addEventListener("click", (e) => {
+    const localStorageValue = localStorage.getItem("totCartitems");
+    if (localStorageValue) {
+      cartList = JSON.parse(localStorageValue);
+    }
+
+    cartList.push(
+      productsList.find(
+        (product) => parseInt(e.currentTarget.id) === product.id
+      )
+    );
+    setCartProductsNum();
+    showModal(product.offsetTop, product.offsetLeft);
+    
+    // Nel caso in cui volessimo aggiungere una interazione col LocalStorage
+    localStorage.setItem("totCartitems", JSON.stringify(cartList));
+  });
+}
+
+function createImg(parent, imgUrl, productTitle) {
+  const image = document.createElement("img");
+  image.src = imgUrl;
+  image.alt = productTitle;
+
+  parent.appendChild(image);
+}
+
+function createText(parent, productTitle, textPrice) {
+  const title = document.createElement("h4");
+  title.textContent = productTitle;
+
+  const price = document.createElement("strong");
+  price.textContent = `${textPrice} $`;
+
+  parent.append(title, price);
+}
+
+function renderProducts(listItems) {
+  listItems.map((product) => {
+    createProduct(
+      wrapperProducts,
+      product.image,
+      product.title,
+      product.price,
+      product.id
+    );
+  });
+}
+
+// Async await
+const getProductsList = async () => {
+  const res = await fetch("https://fakestoreapi.com/products");
+  const data = await res.json();
+  productsList = data;
+
+  return renderProducts(data);
+};
+
+let productsList = [];
+const wrapperProducts = document.querySelector(".wrapper__products");
+
+// Parte inerente alla logica del carrello
+let cartList = [];
+
+const localStorageTot = localStorage.getItem("totCartitems");
+const cartBtn = document.querySelector(".cartBtn");
+const cartProductsNum = document.querySelector(".cartProductsNum");
+const clearCartBtn = document.querySelector(".clearCart");
+
+// Flusso generale
+const parsedTotCardItemsLen =
+  JSON.parse(localStorage.getItem("totCartitems"))?.length || 0;
+
+cartProductsNum.textContent = `Numero prodotti: ${parsedTotCardItemsLen || 0}`;
+getProductsList();
+
+clearCartBtn.addEventListener("click", () => {
+  cartList.length = 0;
+  setCartProductsNum();
+});
