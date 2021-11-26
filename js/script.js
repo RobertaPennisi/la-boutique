@@ -30,7 +30,6 @@ const slider = () => {
 
 setInterval(slider, 9000);
 
-//Parte inerente la logica del carrello
 function setCartProductsNum() {
   cartProductsNum.textContent = `Numero prodotti: ${cartList.length}`;
 }
@@ -57,9 +56,12 @@ function createProduct(parent, imgUrl, productTitle, textPrice, idProduct) {
     );
     setCartProductsNum();
     showModal(product.offsetTop, product.offsetLeft);
-    
+    //alert(`Prodotto aggiunto al carrello, numero prodotti: ${cartList.length}`);
     // Nel caso in cui volessimo aggiungere una interazione col LocalStorage
+
     localStorage.setItem("totCartitems", JSON.stringify(cartList));
+
+    // console.log("LOCAL STORAGE ==>", localStorageValue);
   });
 }
 
@@ -99,6 +101,12 @@ const getProductsList = async () => {
   const data = await res.json();
   productsList = data;
 
+  // Nella eventualità di aggiungere una quantità per prodotto
+  // productsList = data.map((product) => {
+  //   product.quantity = 0;
+  //   return product;
+  // });
+
   return renderProducts(data);
 };
 
@@ -122,5 +130,6 @@ getProductsList();
 
 clearCartBtn.addEventListener("click", () => {
   cartList.length = 0;
+  localStorage.setItem("totCartitems", JSON.stringify(cartList));
   setCartProductsNum();
 });
